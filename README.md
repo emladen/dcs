@@ -19,7 +19,14 @@ program se pokrece is direktorijuma gde se nalazi datoteka dcs.py
 __python dcs.py__
 
 ### Pokretanje Aplikacije u web browseru
-koristi sledeci link: **localhost:8080** da bi otvorio sajt u web browseru.
+koristi sledeci link: 
+
+**localhost:8080** 
+
+da bi otvorio sajt u web browseru.
+
 **login**
+
 username: admin
+
 password: admin
