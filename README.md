@@ -7,12 +7,15 @@ da bi pokrenuo aplikaciju koristi sledece komande:
 
 ### requirements za python
 sledeca biblioteka se mora dopunski instalirati:
+
 __pip install web.py__
 
 u slucaju da vec postoji mozes je naci preko:
+
 __pip freze__
 
-program se pokrece is direktorijuma gde se nalazi dcs.py
+program se pokrece is direktorijuma gde se nalazi datoteka dcs.py
+
 __python dcs.py__
 
 ### Pokretanje Aplikacije u web browseru
