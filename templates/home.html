@@ -27,11 +27,77 @@ $def with()
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="$app_path('/static/scripts/ie-emulation-modes-warning.js')"></script>
 
+    <script src="$app_path('/static/scripts/jquery-3.2.1.min.js')">
+    <script>window.jQuery || document.write('<script src="$app_path('/static/scripts/jquery-3.2.1.min.js"><\/script>')</script>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+    
+    var baseUrl = '${web.ctx.homepath}';
+    var en = 5;
+    
+    jQuery(document).ready(function(){
+    	
+/*         jQuery("button#relay1").click(function(){
+	        jQuery.ajax({type: "GET", 
+	            url: "/cv", 
+	            data: { relay1: jQuery("button#relay1").val()},
+	            beforeSend: function() { 
+	                console.log("Submitting Data");  
+	            },
+	            cache: false,
+	            success: function(html) { 
+	            	jQuery("button#relay1").toggleClass('btn-power-on btn-power-off');        
+	           }          
+	        }); 
+        }); */
+        
+/*         jQuery("button#relay5").click(function(){
+            jQuery("form[name='hf'] input[name='relay5']").val(jQuery("button#relay5").val());
+            jQuery("form[name='hf']").submit();
+        }); */
+
+
+        $for index in range(1,9):
+	        jQuery("button#relay$index").click(function(){
+		        jQuery.ajax({type: "GET", 
+		            url: "/cv", 
+		            data: { relay$index: jQuery("button#relay$index").val()},
+		            beforeSend: function() { 
+		                console.log("Submitting Data");  
+		            },
+		            cache: false,
+		            success: function(html) { 
+		            	window.location.reload(true);          
+		           }          
+		        }); 
+	        });
+
+        
+	$for pos in ["pos0", "pos90", "pos180", "pos270"]:        
+			jQuery("button#mot_$pos").click(function(){
+		    jQuery("form[name='mf'] button[name='mot_$pos']").val(jQuery("button#mot_$pos").val());
+		    jQuery("form[name='mf']").submit();});
+        
+        jQuery("button#emergency_button").click(function(){
+	        jQuery.ajax({type: "GET", 
+	            url: "/eb", 
+	            beforeSend: function() { 
+	                console.log("Submitting Data");  
+	            },
+	            cache: false,
+	            success: function(html) { 
+	            	window.location.reload(true);          
+	           }          
+	        }); 
+        });
+   	});
+    
+    </script>
   </head>
 
   <body>
@@ -85,40 +151,50 @@ $def with()
 		            		<div class="panel-body">
 						  		<p> 
  
-							      		<button type="button" class="btn btn-lg btn-$pw_system['relay1']">Relay 1</button>
-
+							      	<button type="button" id="relay1" class="btn btn-lg btn-$pw_system['relay1']" value="$pw_system['relay1']">Relay 1</button>
 							      		
-							      		<button type="button" class="btn btn-lg btn-$pw_system['relay2']">Relay 2</button>
-						      		
-									      		
-							      		<button type="button" class="btn btn-lg btn-$pw_system['relay3']">Relay 3</button>
-							      							      		
-															      		
-							      		<button type="button" class="btn btn-lg btn-$pw_system['relay4']">Relay 4</button>							      		
+							      	<button type="button" id="relay2" class="btn btn-lg btn-$pw_system['relay2']" value="$pw_system['relay2']">Relay 2</button>
+				      											      		
+							      	<button type="button" id="relay3"  class="btn btn-lg btn-$pw_system['relay3']" value="$pw_system['relay3']">Relay 3</button>
+							      							      																	      		
+							      	<button type="button" id="relay4" class="btn btn-lg btn-$pw_system['relay4']" value="$pw_system['relay4']">Relay 4</button>							      		
 						      		
 						  		</p>
 	
 						  		<p>
-									<button type="button" class="btn btn-lg btn-power-off">Relay 5</button>
-									<button type="button" class="btn btn-lg btn-power-off">Relay 6</button>
-									<button type="button" class="btn btn-lg btn-power-off">Relay 7</button>
-									<button type="button" class="btn btn-lg btn-power-on">Relay 8</button>
+									<button type="button" id="relay5" class="btn btn-lg btn-$pw_system['relay5']" value="$pw_system['relay5']">Relay 5</button>
+									
+									<button type="button" id="relay6" class="btn btn-lg btn-$pw_system['relay6']" value="$pw_system['relay6']">Relay 6</button>
+									
+									<button type="button" id="relay7" class="btn btn-lg btn-$pw_system['relay7']" value="$pw_system['relay7']">Relay 7</button>
+									
+									<button type="button" id="relay8" class="btn btn-lg btn-$pw_system['relay8']" value="$pw_system['relay8']">Relay 8</button>
 						  		</p>
 		            		</div>
 	          			</div>
           		</div>
-          
+		 <div id="controls">
+		    <form name="hf" action="${app_path('/cmp')}" method="get">
+		        <input type="hidden" name="relay1">
+		        <input type="hidden" name="relay2">
+		        <input type="hidden" name="relay3">
+		        <input type="hidden" name="relay4">
+		        <input type="hidden" name="relay5">
+		    </form>
+		</div>
       	<div class="col-sm-6">  
         	<div class="panel panel-default">
             	<div class="panel-heading">
           			<h3 class="panel-title">Motor Position Control system</h3>
         		</div>
 	        	<div class="panel-body">
-			    	<p> 
-				      <button type="button" class="btn btn-lg btn-power-off">0°</button>
-				      <button type="button" class="btn btn-lg btn-power-off">90°</button>
-				      <button type="button" class="btn btn-lg btn-power-off">180°</button>
-				      <button type="button" class="btn btn-lg btn-power-on">270°</button>
+			    	<p>
+				    	<form id="myform" name="mf" action="${app_path('/cmp')}" method="get">
+						      <button name="mot_pos0" id="mot_pos0" type="submit" class="btn btn-lg btn-$pw_system['mot_pos0']"  value="$pw_system['mot_pos0']">0°</button>
+						      <button name="mot_pos90" id="mot_pos90" type="submit" class="btn btn-lg btn-$pw_system['mot_pos90']"  value="$pw_system['mot_pos90']">90°</button>
+						      <button name="mot_pos180" id="mot_pos180" type="submit" class="btn btn-lg btn-$pw_system['mot_pos180']"  value="$pw_system['mot_pos180']">180°</button>
+						      <button name="mot_pos270" id="mot_pos270" type="submit" class="btn btn-lg btn-$pw_system['mot_pos270']"  value="$pw_system['mot_pos270']">270°</button>
+					     </form>
 			    	</p>
 	        	</div>
       		</div>          
@@ -133,7 +209,7 @@ $def with()
         		</div>
 	        	<div class="panel-body">
 			    	<p> 
-				      <button type="button" class="btn btn-lg btn-power-off">Turn power supply off</button>
+				      	<button id="emergency_button" type="submit" class="btn btn-lg btn-power-off">Turn power supply off</button>
 			    	</p>
 	        	</div>
       		</div>             	 	  
@@ -196,8 +272,6 @@ All electrical work should be carried out by a suitably qualified and authorised
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="$app_path('/static/scripts/jquery-3.2.1.min.js')">
-    <script>window.jQuery || document.write('<script src="$app_path('/static/scripts/jquery-3.2.1.min.js"><\/script>')</script>
     <script src="$app_path('/static/bootstrap-3.3.7/js/bootstrap.min.js')"></script>
     <script src="$app_path('/static/scripts/docs.min.js')"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

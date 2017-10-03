@@ -7,11 +7,14 @@ Created on Sep 30, 2017
 #          '/login', 'webpages.login',
 #          '/about', 'webpages.about',
 #          '/home', 'webpages.home')
-import webpages
 
-urls = ( '/', 'webpages.index',
+
+urls = ( '/', 'webpages.home',
          '/login', 'webpages.login',
          '/about', 'webpages.about',
          '/home', 'webpages.home',
          '/logout', 'webpages.logout',
-         '/safetyinstructions', 'webpages.safetyinstructions')
+         '/safetyinstructions', 'webpages.safetyinstructions',
+         '/cv', 'webpages.change_values',
+         '/cmp', 'webpages.change_motor_position',
+         '/eb', 'webpages.emergency_turnoff')

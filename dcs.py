@@ -1,6 +1,6 @@
 import web
 from webpages import *
-from urls import urls
+from urls import *
 
 web.config.debug = False
 app = web.application(urls, globals())
@@ -19,10 +19,10 @@ pw_system_globals = {
     'relay8'    : 'power-off',
     'relay9'    : 'power-off',
     'mot_pos0'  : 'power-off',
-    'mot_pos'   : 'power-off',
-    'mot_pos'   : 'power-off',
-    'mot_pos'   : 'power-off',
-    }    
+    'mot_pos90'   : 'power-off',
+    'mot_pos180'   : 'power-off',
+    'mot_pos270'   : 'power-off',
+    }
 template_globals = {
     'app_path': lambda p: web.ctx.homepath + p,
     'session': web.config._session,

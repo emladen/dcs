@@ -51,3 +51,9 @@ def validate_login(user, password):
         return True
     else:
         return False
+
+def toogle_power_status(status):
+    if status == "power-off":
+        return "power-on"
+    else:
+        return "power-off"

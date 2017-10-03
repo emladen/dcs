@@ -6,7 +6,7 @@ Created on Sep 30, 2017
 
 import web
 from web import form
-from dcs import render, template_globals
+from dcs import render, template_globals, pw_system_globals
 from helpers import *
 
 
@@ -72,3 +72,53 @@ class about(ProtectedPage):
 class safetyinstructions(ProtectedPage):
     def GET(self):
         return render.safety()    
+    
+class emergency_turnoff(ProtectedPage):
+    
+    def GET(self):
+        for key in pw_system_globals.keys():
+            pw_system_globals[key] = 'power-off'
+            
+        raise web.seeother('/')
+        
+class change_motor_position(ProtectedPage):
+    
+    def GET(self):
+        qdict = web.input()
+        
+        motor_pos = {
+             'mot_pos0'  : 'power-off',
+             'mot_pos90'   : 'power-off',
+             'mot_pos180'   : 'power-off',
+             'mot_pos270'   : 'power-off',
+            }
+        try:
+            for key in qdict.keys():
+                for pos in ["0", "90", "180", "270"]:
+                    if key in motor_pos.keys():
+                        if key <> ('mot_pos' + pos): 
+                            pw_system_globals["mot_pos" + pos] = "power-off"
+                        elif key == ('mot_pos' + pos):
+                            pw_system_globals["mot_pos" + pos] = "power-on"
+        except Exception:
+            pass
+            
+            
+        #return render.home()
+        raise web.seeother('/')  # Send browser back to home page     
+    
+class change_values(ProtectedPage):
+    """Save controller values, return browser to home page."""
+
+    def GET(self):
+        qdict = web.input()
+
+        for key in qdict.keys():
+            try:
+                if key in pw_system_globals.keys():
+                    pw_system_globals[key] = toogle_power_status(qdict[key])
+            except Exception:
+                pass
+        #return render.home()
+        raise web.seeother('/')  # Send browser back to home page            
+ 
