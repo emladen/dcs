@@ -84,7 +84,7 @@ def turn_reley_on(reley_pin):
         pass
     
 def turn_reley_on_by_name(relay):
-    print("Turning " + relay + " off")
+    print("Turning " + relay + " on")
     try:
         GPIO.setup(pinDict[relay], GPIO.OUT)
         GPIO.output(pinDict[relay], GPIO.HIGH)
