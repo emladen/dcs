@@ -35,14 +35,33 @@ try:
 except ImportError:
     pin_map = [i for i in range(27)] # assume 26 pins all mapped.  Maybe we should not assume anything, but...
     platform = ''  # if no platform, allows program to still run.
+
     print ('No GPIO module was loaded from GPIO Pins module')
-        
+
+
+      
 try:
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BOARD)
 except NameError:
     pass
 
+LOCAL_GPIO_SETUP = True
+
+def setup_local_gpio(): 
+    global LOCAL_GPIO_SETUP
+           
+    try:
+        import RPi.GPIO as GPIO        
+    except ImportError:
+        pass
+    try:
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BOARD)
+    except NameError:
+        pass
+    LOCAL_GPIO_SETUP = True
+    
 pin_relay1 = 11
 pin_relay2 = 13
 pin_relay3 = 15
@@ -71,6 +90,8 @@ pinDict = {
 
 def turn_reley_off(reley_pin):
     try:
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(reley_pin, GPIO.OUT)
         GPIO.output(reley_pin, GPIO.LOW)
     except NameError:
@@ -78,6 +99,9 @@ def turn_reley_off(reley_pin):
 
 def turn_reley_on(reley_pin):
     try:
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BOARD)
+
         GPIO.setup(reley_pin, GPIO.OUT)
         GPIO.output(reley_pin, GPIO.HIGH)
     except NameError:
@@ -85,6 +109,8 @@ def turn_reley_on(reley_pin):
     
 def turn_reley_on_by_name(relay):
     print("Turning " + relay + " on")
+    if not LOCAL_GPIO_SETUP:
+        setup_local_gpio()
     try:
         GPIO.setup(pinDict[relay], GPIO.OUT)
         GPIO.output(pinDict[relay], GPIO.HIGH)
@@ -93,6 +119,8 @@ def turn_reley_on_by_name(relay):
     
 def turn_reley_off_by_name(relay):
     print("Turning " + relay + " off")
+    if not LOCAL_GPIO_SETUP:
+        setup_local_gpio()    
     try:
         GPIO.setup(pinDict[relay], GPIO.OUT)
         GPIO.output(pinDict[relay], GPIO.LOW)
@@ -100,6 +128,8 @@ def turn_reley_off_by_name(relay):
         pass
 
 def turn_gpio_off():
+    global LOCAL_GPIO_SETUP
+    LOCAL_GPIO_SETUP = False
     try:
         GPIO.cleanup()
     except NameError:
