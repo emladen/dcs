@@ -119,9 +119,9 @@ class change_values(ProtectedPage):
             try:
                 if key in pw_system_globals.keys():
                     pw_system_globals[key] = toogle_power_status(qdict[key])
-                    if pw_system_globals[key] == "power_on":
+                    if pw_system_globals[key] == "power-on":
                         turn_reley_on_by_name(key)
-                    elif pw_system_globals[key] == "power_off":
+                    elif pw_system_globals[key] == "power-off":
                         turn_reley_off_by_name(key)
             except Exception:
                 pass

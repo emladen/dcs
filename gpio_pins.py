@@ -13,15 +13,16 @@ Created on Oct 5, 2017
 # GPIO 3   SCL1, I2C
 ##################################
 #RELAY SETTINGS
-# GPIO 4
+# BCM        BOARD
+# GPIO 4     07
 # 
-# GPIO 17
-# GPIO 27
-# GPIO 22
-# GPIO 10
-# GPIO 9
-# GPIO 11
-# GPIO 5
+# GPIO 17    11
+# GPIO 27    13
+# GPIO 22    15
+# GPIO 10    19
+# GPIO 9     21
+# GPIO 11    23
+# GPIO 5     29
 ##################################
 
 loaded = False
@@ -42,18 +43,18 @@ try:
 except NameError:
     pass
 
-pin_relay1 = 4 #pin_map[2]
-pin_relay2 = 17 
-pin_relay3 = 27
-pin_relay4 = 22
-pin_relay5 = 10
-pin_relay6 = 9
-pin_relay7 = 11
-pin_relay8 = 5
+pin_relay1 = 11
+pin_relay2 = 13
+pin_relay3 = 15
+pin_relay4 = 19
+pin_relay5 = 21
+pin_relay6 = 23
+pin_relay7 = 29
+pin_relay8 = 31
 
 # init list with pin numbers  
   
-pinList = [2, 3, 4, 17, 27, 22, 10, 9,]  
+pinList = [11, 13, 15, 19, 21, 23, 29, 31]  
 
 pinDict = {
     'relay1' : pinList[0],
@@ -83,6 +84,7 @@ def turn_reley_on(reley_pin):
         pass
     
 def turn_reley_on_by_name(relay):
+    print("Turning " + relay + " off")
     try:
         GPIO.setup(pinDict[relay], GPIO.OUT)
         GPIO.output(pinDict[relay], GPIO.HIGH)
@@ -90,6 +92,7 @@ def turn_reley_on_by_name(relay):
         pass
     
 def turn_reley_off_by_name(relay):
+    print("Turning " + relay + " off")
     try:
         GPIO.setup(pinDict[relay], GPIO.OUT)
         GPIO.output(pinDict[relay], GPIO.LOW)
