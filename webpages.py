@@ -8,6 +8,7 @@ import web
 from web import form
 from dcs import render, template_globals, pw_system_globals
 from helpers import *
+from gpio_pins import *
 
 
 class ProtectedPage():
@@ -78,7 +79,8 @@ class emergency_turnoff(ProtectedPage):
     def GET(self):
         for key in pw_system_globals.keys():
             pw_system_globals[key] = 'power-off'
-            
+        
+        turn_gpio_off()
         raise web.seeother('/')
         
 class change_motor_position(ProtectedPage):
@@ -117,6 +119,10 @@ class change_values(ProtectedPage):
             try:
                 if key in pw_system_globals.keys():
                     pw_system_globals[key] = toogle_power_status(qdict[key])
+                    if pw_system_globals[key] == "power_on":
+                        turn_reley_on_by_name(key)
+                    elif pw_system_globals[key] == "power_off":
+                        turn_reley_off_by_name(key)
             except Exception:
                 pass
         #return render.home()

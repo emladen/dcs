@@ -1,6 +1,7 @@
 import web
 from webpages import *
 from urls import *
+from gpio_pins import *
 
 web.config.debug = False
 app = web.application(urls, globals())
