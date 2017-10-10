@@ -5,7 +5,6 @@ Created on Sep 30, 2017
 '''
 
 import web
-from web import form
 from dcs import render, template_globals, pw_system_globals
 from helpers import *
 from gpio_pins import *
@@ -31,7 +30,7 @@ class index(ProtectedPage):
     
 class login:
     def GET(self):
-        t = 1
+        #web.config._session.count += 1
         return render.login(True)
 #         form2 = my3form()
 #         return render.login2(form2)
@@ -42,24 +41,21 @@ class login:
             # shuld return information for repair
             return render.login(False)
         else:
-            web.config._session._initializer['user'] = 'admin'
+            web.config._session['user'] = 'admin'
             template_globals['user'] = 'admin'
             #report_login()
             raise web.seeother('/home')
 
 class logout:
     def GET(self):
-        pass
-        #web.config._session.user = 'anonymous'
-        web.config._session._initializer['user'] = 'anonymous'
+        web.config._session['user'] = 'anonymous'
+        web.config._session.kill()
         raise web.seeother('/')       
 
 
 class home(ProtectedPage):
     def GET(self):
-        x = 5
-        pass
-        user = web.config._session._initializer['user']
+        user = web.config._session['user']
         if web.config.get('_session') is None:
             web.config._session.user = 'anonymous'
         #session.user = 'admin2'

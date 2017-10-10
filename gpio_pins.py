@@ -14,15 +14,15 @@ Created on Oct 5, 2017
 ##################################
 #RELAY SETTINGS
 # BCM        BOARD
-# GPIO 4     07
+# GPIO 4     11
 # 
-# GPIO 17    11
+# GPIO 17    12
 # GPIO 27    13
-# GPIO 22    15
-# GPIO 10    19
-# GPIO 9     21
-# GPIO 11    23
-# GPIO 5     29
+# GPIO 22    19
+# GPIO 10    21
+# GPIO 9     24
+# GPIO 11    29
+# GPIO 5     31
 ##################################
 
 loaded = False
@@ -51,10 +51,10 @@ LOCAL_GPIO_SETUP = True
 def setup_local_gpio(): 
     global LOCAL_GPIO_SETUP
            
-    try:
-        import RPi.GPIO as GPIO        
-    except ImportError:
-        pass
+#     try:
+#         import RPi.GPIO as GPIO        
+#     except ImportError:
+#         pass
     try:
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)

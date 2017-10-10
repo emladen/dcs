@@ -1,13 +1,14 @@
 import web
-from webpages import *
 from urls import *
 from gpio_pins import *
+from helpers import setup_database
 
 web.config.debug = False
 app = web.application(urls, globals())
+#db = web.database(dbn='sqlite', 'db')
 if web.config.get('_session') is None:
     web.config._session = web.session.Session(app, web.session.DiskStore('sessions'),
-                                              initializer={'user': 'anonymous'})
+                                              initializer={'user': 'anonymous', 'count': 0})
     
 pw_system_globals = {
     'relay1'    : 'power-off',
@@ -24,6 +25,9 @@ pw_system_globals = {
     'mot_pos180'   : 'power-off',
     'mot_pos270'   : 'power-off',
     }
+
+setup_database()
+
 template_globals = {
     'app_path': lambda p: web.ctx.homepath + p,
     'session': web.config._session,
@@ -32,6 +36,7 @@ template_globals = {
     'pw_system': pw_system_globals
 }
 render = web.template.render('templates/', globals=template_globals)
+
 
 if __name__ == "__main__": 
     app.run()    
