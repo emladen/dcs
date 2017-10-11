@@ -28,8 +28,16 @@ Created on Oct 5, 2017
 # GPIO 5     31
 ##################################
 
+
 from __future__ import division
 import time
+
+CH0_ROTATE_SPEED_FORWARD    = 364
+CH1_ROTATE_SPEED_FORWARD    = 364
+CH0_ROTATE_SPEED_BACK       = 373
+CH1_ROTATE_SPEED_BACK       = 373
+TIME_DURATION_FORWARD       = 2.3
+TIME_DURATION_BACK          = 2.3
 
 loaded = False
 try:
@@ -158,52 +166,49 @@ def turn_gpio_off():
         pass    
 
 def rotate(angle):
-    rotate_time_duration = 2.35 
     time_factor = 1
     try:
         time_factor = abs(angle / 90)
         if angle > 0:
-            #rotate +
-            pwm.set_pwm(0,0,364)
-            pwm.set_pwm(1,0,364)
-            time.sleep(rotate_time_duration * time_factor)
+            #rotate forward
+            pwm.set_pwm(0,0,CH0_ROTATE_SPEED_FORWARD)
+            pwm.set_pwm(1,0,CH1_ROTATE_SPEED_FORWARD)
+            time.sleep(TIME_DURATION_FORWARD * time_factor)
         elif(angle < 0):
             #rotate -
-            pwm.set_pwm(0,0,373)
-            pwm.set_pwm(1,0,373)
-            time.sleep(rotate_time_duration * time_factor)           
+            pwm.set_pwm(0,0,CH0_ROTATE_SPEED_BACK)
+            pwm.set_pwm(1,0,CH1_ROTATE_SPEED_BACK)
+            time.sleep(TIME_DURATION_BACK * time_factor)           
         #Stop rotatin
         pwm.set_pwm(0,0,0)
         pwm.set_pwm(1,0,0)
     except Exception:
         pass
 
-last_angle = 0    
+actual_angle = 0    
 def set_angle_position(angle):
-    global last_angle
+    global actual_angle
     
-    rotate_time =  2.35
-    rotate_time2 = 2.35
     faktor = 0
     try:
-        faktor = int(angle) - int(last_angle)
+        delta = int(angle) - int(actual_angle)
         print(str(faktor))
-        x = abs(int(faktor) / 90)
+        x = abs(int(faktor)) / 90
 
-        if faktor >  0:
-            pwm.set_pwm(0, 0, 364)
-            pwm.set_pwm(1,0,364)
-            time.sleep(rotate_time * x)
+        if delta >  0:
+            pwm.set_pwm(0, 0, CH0_ROTATE_SPEED_FORWARD)
+            pwm.set_pwm(1,0, CH1_ROTATE_SPEED_FORWARD)
+            time.sleep(TIME_DURATION_FORWARD * x)
             pwm.set_pwm(0, 0, 0)
             pwm.set_pwm(1,0,0)
-        if faktor <  0:
-            pwm.set_pwm(0, 0, 373)
-            pwm.set_pwm(1,0,373)
-            time.sleep(rotate_time2 * x)
-            pwm.set_pwm(0, 0 , 0)
-            pwm.set_pwm(1,0,0)
+        if delta <  0:
+            pwm.set_pwm(0, 0, CH0_ROTATE_SPEED_BACK)
+            pwm.set_pwm(1, 0, CH1_ROTATE_SPEED_BACK)
+            time.sleep(TIME_DURATION_BACK * x)
+            pwm.set_pwm(0, 0, 0)
+            pwm.set_pwm(1, 0, 0)
             
-        last_angle = angle
+        actual_angle = angle
     except Exception:
         pass    
     
