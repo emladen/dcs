@@ -31,12 +31,12 @@ pw_system_globals = {
     }
 
 setup_database()
-
+web.config._session['user'] = 'anonymous'
 template_globals = {
     'app_path': lambda p: web.ctx.homepath + p,
     'session': web.config._session,
     'web': web,
-    'user': web.config._session._initializer['user'],
+    'user': web.config._session['user'],
     'pw_system': pw_system_globals
 }
 render = web.template.render('templates/', globals=template_globals)
