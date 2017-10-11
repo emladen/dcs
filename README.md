@@ -30,3 +30,35 @@ da bi otvorio sajt u web browseru.
 username: admin
 
 password: admin
+
+
+PWM SETTINGS
+
+        SERVO MOTOR PWM SETTINGS  
+
+        GPIO 2         SDA1 I2C
+
+        GPIO 3         SCL1, I2C
+
+
+
+
+RELAY SETTINGS
+
+        BCM        BOARD
+        
+        Reley1        GPIO 4        (11)
+
+        Reley2        GPIO 17        (12)
+
+        Reley3        GPIO 27        (13)
+
+        Reley4        GPIO 22        (19)
+
+        Reley5        GPIO 10        (21)
+
+        Reley6        GPIO 9        (24)
+
+        Reley7        GPIO 11        (29)
+
+        Reley8        GPIO 5        (31)
