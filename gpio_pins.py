@@ -161,6 +161,8 @@ def turn_gpio_off():
     global LOCAL_GPIO_SETUP
     LOCAL_GPIO_SETUP = False
     try:
+        pwm.set_pwm(0, 0, 0)
+        pwm.set_pwm(1, 0, 0)
         GPIO.cleanup()
     except NameError:
         pass    
