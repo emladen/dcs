@@ -17,4 +17,5 @@ urls = ( '/', 'webpages.home',
          '/safetyinstructions', 'webpages.safetyinstructions',
          '/cv', 'webpages.change_values',
          '/cmp', 'webpages.change_motor_position',
-         '/eb', 'webpages.emergency_turnoff')
+         '/eb', 'webpages.emergency_turnoff',
+         '/mr', 'webpages.motor_rotation',)

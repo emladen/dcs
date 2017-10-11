@@ -71,6 +71,8 @@ $def with()
 
         $for index in range(1,9):
 	        jQuery("button#relay$index").click(function(){
+	        	jQuery("button#relay$index").toggleClass('btn-power-on btn-power-off');
+	        	
 		        jQuery.ajax({type: "GET", 
 		            url: "/cv", 
 		            data: { relay$index: jQuery("button#relay$index").val()},
@@ -91,6 +93,8 @@ $def with()
 		    jQuery("form[name='mf']").submit();});
         
         jQuery("button#emergency_button").click(function(){
+        	jQuery("button#emergency_button").toggleClass('btn-danger btn-power-off');
+        	
 	        jQuery.ajax({type: "GET", 
 	            url: "/eb", 
 	            beforeSend: function() { 
@@ -102,8 +106,34 @@ $def with()
 	           }          
 	        }); 
         });
-   	});
+
+    $for angle in ["90l", "10l", "10r", "90r"]:
+	     jQuery("button#mot_rot_$angle").click(function(){
+	    	 jQuery("button#mot_rot_$angle").toggleClass('btn-power-on btn-power-off');
+	    	 
+	    	 jQuery.ajax({type: "GET", 
+		            url: "/mr", 
+		            data: { mot_rot_$angle: jQuery("button#mot_rot_$angle").val()},
+		            beforeSend: function() { 
+		                console.log("Submitting Data");  
+		            },
+		            cache: false,
+		            success: function(html) { 
+		            	window.location.reload(true);          
+		           }          
+		        });     	 
+	     });
     
+
+    
+    
+    
+    
+    
+    });
+    
+
+
     </script>
   </head>
 
@@ -208,6 +238,24 @@ $def with()
       		</div>          
 		</div><!-- /.col-sm-4 -->
 	</div><!-- /.row -->
+
+	<div class="row">
+    	<div class="col-sm-12">    
+        	<div class="panel panel-default">
+            	<div class="panel-heading">
+          			<h3 class="panel-title">Motor rotations</h3>
+        		</div>
+	        	<div class="panel-body">
+			    	<p> 
+						<button type="button" id="mot_rot_90l" class="btn btn-lg btn-$pw_system['mot_rot_90l']" value="-90">Rotate -90°</button>
+						<button type="button" id="mot_rot_10l" class="btn btn-lg btn-$pw_system['mot_rot_10l']" value="-10">Rotate -10°</button>
+						<button type="button" id="mot_rot_10r" class="btn btn-lg btn-$pw_system['mot_rot_10r']" value="10">Rotate +10°</button>
+						<button type="button" id="mot_rot_90r" class="btn btn-lg btn-$pw_system['mot_rot_90r']" value="90">Rotate +90°</button>
+			    	</p>
+	        	</div>
+      		</div>             	 	  
+		</div><!-- /.col-sm-4 -->
+	</div><!-- /.row -->	 
 	
 	<div class="row">
     	<div class="col-sm-12">    

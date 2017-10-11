@@ -73,14 +73,16 @@ def decrypt(key, encoded):
     return pprp.decrypt_sink(dg).decode('utf-8')
 
 def create_salt():
-    #return "".join(chr(random.randint(33,127)) for x in xrange(64))
-    return bcrypt.gensalt()
+    return "".join(chr(random.randint(33,127)) for x in xrange(64))
+    #for bcrpyt
+    #return bcrypt.gensalt()
 
 def create_saltedpw(password, salt):
     
-    #return sha512(password + g_pepper + salt).hexdigest()
+    return sha512(password + g_pepper + salt).hexdigest()
     #return hashpw(password + g_pepper, salt)
-    return hashpw(password, salt)
+    #for bcrypt
+    #return hashpw(password, salt)
 
 def create_db_connection(db_file):
     try:

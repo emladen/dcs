@@ -24,6 +24,10 @@ pw_system_globals = {
     'mot_pos90'   : 'power-off',
     'mot_pos180'   : 'power-off',
     'mot_pos270'   : 'power-off',
+    'mot_rot_90l'    : 'power-off',
+    'mot_rot_10l'    : 'power-off',
+    'mot_rot_10r'    : 'power-off',
+    'mot_rot_90r'    : 'power-off',            
     }
 
 setup_database()

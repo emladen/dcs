@@ -67,6 +67,7 @@ class about(ProtectedPage):
         #return render.home2()
 
 class safetyinstructions(ProtectedPage):
+
     def GET(self):
         return render.safety()    
     
@@ -78,6 +79,27 @@ class emergency_turnoff(ProtectedPage):
         
         turn_gpio_off()
         raise web.seeother('/')
+    
+class motor_rotation(ProtectedPage):
+    def GET(self):
+        qdict = web.input()
+        
+        motor_rot = {
+            'mot_rot_90l'    : -90,
+            'mot_rot_10l'    : -10,
+            'mot_rot_10r'    : 10,
+            'mot_rot_90r'    : 90,            
+            }
+        
+        try:
+            for key in qdict.keys():
+                if key in motor_rot.keys():
+                    rotate(motor_rot[key])
+        except Exception:
+            pass
+                 
+        #return render.home()
+        raise web.seeother('/')  # Send browser back to home page             
         
 class change_motor_position(ProtectedPage):
     
