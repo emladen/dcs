@@ -12,7 +12,7 @@ __pip install web.py__
 
 u slucaju da vec postoji mozes je naci preko:
 
-__pip freze__
+__pip freeze__
 
 program se pokrece is direktorijuma gde se nalazi datoteka dcs.py
 
