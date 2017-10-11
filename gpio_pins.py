@@ -32,10 +32,10 @@ Created on Oct 5, 2017
 from __future__ import division
 import time
 
-CH0_ROTATE_SPEED_FORWARD    = 364
-CH1_ROTATE_SPEED_FORWARD    = 364
-CH0_ROTATE_SPEED_BACK       = 373
-CH1_ROTATE_SPEED_BACK       = 373
+CH0_ROTATE_SPEED_FORWARD    = 365
+CH1_ROTATE_SPEED_FORWARD    = 365
+CH0_ROTATE_SPEED_BACK       = 376
+CH1_ROTATE_SPEED_BACK       = 376
 TIME_DURATION_FORWARD       = 2.3
 TIME_DURATION_BACK          = 2.3
 
@@ -168,8 +168,8 @@ def turn_gpio_off():
 def rotate(angle):
     time_factor = 1
     try:
-        time_factor = abs(angle / 90)
-        if angle > 0:
+        time_factor = abs(angle) / 90
+        if (angle > 0):
             #rotate forward
             pwm.set_pwm(0,0,CH0_ROTATE_SPEED_FORWARD)
             pwm.set_pwm(1,0,CH1_ROTATE_SPEED_FORWARD)
@@ -189,18 +189,17 @@ actual_angle = 0
 def set_angle_position(angle):
     global actual_angle
     
-    faktor = 0
     try:
-        delta = int(angle) - int(actual_angle)
-        print(str(faktor))
-        x = abs(int(faktor)) / 90
+        delta = angle - actual_angle
+        print(str(delta))
+        x = abs(delta) / 90
 
         if delta >  0:
             pwm.set_pwm(0, 0, CH0_ROTATE_SPEED_FORWARD)
-            pwm.set_pwm(1,0, CH1_ROTATE_SPEED_FORWARD)
+            pwm.set_pwm(1, 0, CH1_ROTATE_SPEED_FORWARD)
             time.sleep(TIME_DURATION_FORWARD * x)
             pwm.set_pwm(0, 0, 0)
-            pwm.set_pwm(1,0,0)
+            pwm.set_pwm(1, 0, 0)
         if delta <  0:
             pwm.set_pwm(0, 0, CH0_ROTATE_SPEED_BACK)
             pwm.set_pwm(1, 0, CH1_ROTATE_SPEED_BACK)
@@ -208,7 +207,7 @@ def set_angle_position(angle):
             pwm.set_pwm(0, 0, 0)
             pwm.set_pwm(1, 0, 0)
             
-        actual_angle = angle
     except Exception:
         pass    
     
+    actual_angle = angle
