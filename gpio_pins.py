@@ -164,14 +164,43 @@ def rotate(angle):
         time_factor = abs(angle / 90)
         if angle > 0:
             #rotate +
-            pwm.set_pwm(0,0,368)
+            pwm.set_pwm(0,0,364)
             time.sleep(rotate_time_duration * time_factor)
         elif(angle < 0):
             #rotate -
-            pwm.set_pwm(0,0,378)
+            pwm.set_pwm(0,0,373)
             time.sleep(rotate_time_duration * time_factor)           
         #Stop rotatin
         pwm.set_pwm(0,0,0)
     except Exception:
         pass
+
+last_angle = 0    
+def set_angle_position(angle):
+    global last_angle
+    
+    rotate_time =  2.35
+    rotate_time2 = 2.35
+    faktor = 0
+    try:
+        faktor = int(angle) - int(last_angle)
+        print(str(faktor))
+        x = abs(int(faktor) / 90)
+
+        if faktor >  0:
+            pwm.set_pwm(0, 0, 364)
+            pwm.set_pwm(1,0,364)
+            time.sleep(rotate_time * x)
+            pwm.set_pwm(0, 0, 0)
+            pwm.set_pwm(1,0,0)
+        if faktor <  0:
+            pwm.set_pwm(0, 0, 373)
+            pwm.set_pwm(1,0,373)
+            time.sleep(rotate_time2 * x)
+            pwm.set_pwm(0, 0 , 0)
+            pwm.set_pwm(1,0,0)
+            
+        last_angle = angle
+    except Exception:
+        pass    
     

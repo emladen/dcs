@@ -120,6 +120,7 @@ class change_motor_position(ProtectedPage):
                             pw_system_globals["mot_pos" + pos] = "power-off"
                         elif key == ('mot_pos' + pos):
                             pw_system_globals["mot_pos" + pos] = "power-on"
+                            set_angle_position(int(pos))
         except Exception:
             pass
             

@@ -10,8 +10,13 @@ import random
 import sys
 from sqlite3 import Error
 from hashlib import sha512
-import bcrypt
-from bcrypt import hashpw, gensalt
+
+try:
+    import bcrypt
+    from bcrypt import hashpw, gensalt
+except ImportError:
+    pass
+
 
 import pprp
 import base64
