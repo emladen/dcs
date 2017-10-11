@@ -158,20 +158,23 @@ def turn_gpio_off():
         pass    
 
 def rotate(angle):
-    rotate_time_duration = 2.3
-    time_factor = 1.1
+    rotate_time_duration = 2.35 
+    time_factor = 1
     try:
         time_factor = abs(angle / 90)
         if angle > 0:
             #rotate +
             pwm.set_pwm(0,0,364)
+            pwm.set_pwm(1,0,364)
             time.sleep(rotate_time_duration * time_factor)
         elif(angle < 0):
             #rotate -
             pwm.set_pwm(0,0,373)
+            pwm.set_pwm(1,0,373)
             time.sleep(rotate_time_duration * time_factor)           
         #Stop rotatin
         pwm.set_pwm(0,0,0)
+        pwm.set_pwm(1,0,0)
     except Exception:
         pass
 
