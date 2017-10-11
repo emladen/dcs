@@ -45,7 +45,7 @@ PWM SETTINGS
 
 RELAY SETTINGS
 
-        BCM        BOARD
+                      BCM        BOARD
         
         Reley1        GPIO 4        (11)
 
