@@ -62,6 +62,8 @@ except ImportError:
 try:
     pwm = Adafruit_PCA9685.PCA9685()
     pwm.set_pwm_freq(60)
+except IOError:
+    pass
 except NameError:
     pass
 except RuntimeError:
